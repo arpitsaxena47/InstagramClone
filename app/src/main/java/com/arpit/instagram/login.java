@@ -2,7 +2,9 @@ package com.arpit.instagram;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,7 +34,16 @@ public class login extends AppCompatActivity implements View.OnClickListener {
         btnLogin=findViewById(R.id.btnlogin2);
         btnSignup=findViewById(R.id.btnsignup2);
 
-        btnLogin.setOnClickListener(login.this);
+        btnLogin.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if(keyCode == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    onClick(btnLogin);
+                }
+                return false;
+            }
+        });
         btnSignup.setOnClickListener(login.this);
 
         if(ParseUser.getCurrentUser()!=null)
@@ -60,6 +71,7 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                             if (user != null && e == null) {
                                 FancyToast.makeText(login.this, user.getUsername() + " is Logged in successfully ",
                                         Toast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                                transitToSocialMediaActivity();
                             } else {
                                 FancyToast.makeText(login.this, "Login Failed " + e.getMessage(),
                                         Toast.LENGTH_SHORT, FancyToast.ERROR, true).show();
@@ -71,6 +83,9 @@ public class login extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.btnsignup2:
+
+                Intent intent= new Intent(login.this,signing_up.class);
+                startActivity(intent);
 
 
                 break;
@@ -87,4 +102,10 @@ public class login extends AppCompatActivity implements View.OnClickListener {
             e.printStackTrace();
         }
     }
+    private void transitToSocialMediaActivity()
+    {
+        Intent intent = new Intent(login.this,socialMediaActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -78,6 +78,7 @@ private Button btnSignUp,btnLogin;
                             if (e == null) {
                                 FancyToast.makeText(signing_up.this, appUser.getUsername() + " is signed up ",
                                         Toast.LENGTH_SHORT, FancyToast.SUCCESS, true).show();
+                                transitToSocialMediaActivity();
 
                             } else {
                                 FancyToast.makeText(signing_up.this, "This is an error " + e.getMessage(),
@@ -107,5 +108,13 @@ private Button btnSignUp,btnLogin;
         {
             e.printStackTrace();
         }
+    }
+
+
+
+    private void transitToSocialMediaActivity()
+    {
+        Intent intent = new Intent(signing_up.this,socialMediaActivity.class);
+        startActivity(intent);
     }
 }
